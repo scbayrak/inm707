@@ -43,7 +43,7 @@ class rooms():
         
         # add the tornados & create the state_indices
         self.tornado_positions = self.get_empty_cells(self.tornados)
-        self.grid[self.tornado_positions[0], self.tornado_positions[1]] = 2
+        self.grid[self.tornado_positions] = 2
         # state indices are in format ([agent_ind., tornado1_ind., tornado2_ind.,...])
         self.state_indices = np.zeros(self.tornados+1, dtype=int)
         for i, position in enumerate(zip(*self.tornado_positions)):
@@ -51,12 +51,12 @@ class rooms():
             self.state_indices[i+1] = tornado_index
 
         # add the sub-optimal goal
-        sub_optimal_goal_pos = self.get_empty_cells(1)
-        self.grid[sub_optimal_goal_pos[0], sub_optimal_goal_pos[1]] = 3
+        sub_optimal_goal_position = self.get_empty_cells(1)
+        self.grid[sub_optimal_goal_position] = 3
 
         # add the optimal goal
-        optimal_goal = self.get_empty_cells(1)
-        self.grid[optimal_goal[0], optimal_goal[1]] = 4
+        optimal_goal_position = self.get_empty_cells(1)
+        self.grid[optimal_goal_position] = 4
 
     def get_empty_cells(self, n_cells):
         empty_cells_coord = np.where(self.grid == 0)       
