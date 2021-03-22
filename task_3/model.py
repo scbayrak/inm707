@@ -1,4 +1,5 @@
 import os
+import numpy as np
 from memory import Memory
 import torch
 import torch.nn as nn
@@ -54,6 +55,7 @@ class PPO():
     def __init__(self, env, T, hidden_dim= 256, gamma=0.99, gae_lambda=0.95,
                 clip=0.2, no_batches=5, epochs=5, lr_actor=0.0001, lr_critic=0.0003):
 
+                self.env = env
                 self.state_dim = env.observation_space.shape[0]
                 self.actions_dim = env.action_space.n
                 self.gamma = gamma
@@ -70,6 +72,11 @@ class PPO():
                 self.critic_optim = optim.Adam(self.critic.parameters(), lr=lr_critic)
 
                 self.memory = Memory(no_batches, T)
+
+    def save_weights(self):
+        
+        torch.save(self.actor.state_dict(), "model_weights/actor.pth")
+        torch.save(self.critic.state_dict(), "model_weights/critic.pth")
     
     def get_action_value(self, state):
 
