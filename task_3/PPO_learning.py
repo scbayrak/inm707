@@ -5,11 +5,13 @@ import numpy as np
 
 class PpoLearning():
 
-    def __init__(self, no_games, PPO):
+    def __init__(self, no_games, PPO, max_score, save):
 
         self.no_games = no_games
         self.ppo = PPO
         self.env = PPO.env
+        self.max_score = max_score
+        self.save = save
 
     def train(self):
 
@@ -41,7 +43,15 @@ class PpoLearning():
                 avg_score = np.mean(game_rew_hist[-10:])
 
                 if avg_score > best_score:
-                    self.ppo.save_weights()
+                    best_score = avg_score
+                    if self.save:
+                        self.ppo.save_weights()
 
                 print('Episode: ', game, 'average score:', avg_score, 
                 'learning_iterations:', iters)
+
+                if avg_score == self.max_score:
+                    print(f"Maximum score of {self.max_score} reached")
+                    break
+
+        return best_score, game, iters
