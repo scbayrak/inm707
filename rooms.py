@@ -5,29 +5,29 @@ import random
 actions_dict = {0:"up", 1:"down", 2:"left", 3:"right"}
 
 class rooms():
-    def __init__(self, size):
+    def __init__(self, size, testing=False):
         self.size = size
         self.grid= np.zeros((size, size), dtype = np.int8)
         self.agent_position= None
         self.time_elapsed = 0
         self.time_limit = (size ** 2) * 5
         self.tornados = round(size / 5)
+        self.testing = testing
         
-        
-        
+        # needed for testing
+        self.middle_door_pos = None
+    
         # customizable rewards
-        self.rewards = {"empty":0, "obstacle":-3, "tornado":-25, 
-                    "sub_opt_goal":size**2, "opt_goal":(size**2)*5}
+        self.rewards = {"empty":0, 
+                        "obstacle":-3, 
+                        "tornado":-25, 
+                        "sub_opt_goal":size**2, 
+                        "opt_goal":(size**2)*5}
         
-        ## NEW ##
-        ## needed for testing
-        self.doors = []
-        self.opt_location = []
-        self.sub_opt_location = []
-        self.to_test = False
-        ## available actions
+        # available actions
         self.actions_dict = {0:"up", 1:"down", 2:"left", 3:"right"}
-        ## For Displaying the envirenment
+
+        # For Displaying the envirenment
         self.display_labels = { 0:'.',
                                 1:'X',
                                 2:'T',
@@ -58,45 +58,63 @@ class rooms():
         random_x, random_y = np.random.choice(range(1,round(size/2)), 2)
         self.grid[random_x,round(size/2)] = 0
         self.grid[round(size/2), random_y] = 0
-        
-        self.doors.append([random_x, round(size/2)])
-        self.doors.append([round(size/2), random_y])
-        
+      
         random_x, random_y = np.random.choice(range(-2,-round(size/2)+1, -1), 2)
-        self.grid[random_x,round(size/2)] = 0
+        # set the middle_door for testing
+        self.middle_door_pos = (random_x, round(size/2))
+        self.grid[self.middle_door_pos] = 0
         self.grid[round(size/2), random_y] = 0
-        
-        self.doors.append([round(size/2), random_y + 10])
-        self.doors.append([random_x + 10, round(size/2)])
-        
-        
+
         # add the tornados & create the state_indices
         self.tornado_positions = self.get_empty_cells(self.tornados)
-        self.grid[self.tornado_positions[0], self.tornado_positions[1]] = 2
+        self.grid[self.tornado_positions] = 2
+
         # state indices are in format ([agent_ind., tornado1_ind., tornado2_ind.,...])
         self.state_indices = np.zeros(self.tornados+1, dtype=int)
         for i, position in enumerate(zip(*self.tornado_positions)):
             tornado_index = self.state_index_finder[position]
             self.state_indices[i+1] = tornado_index
 
+        if not testing:
+            # add the sub-optimal goal
+            sub_optimal_goal_pos = self.get_empty_cells(1)
+            self.grid[sub_optimal_goal_pos] = 3
 
-        # add the sub-optimal goal
-        sub_optimal_goal_pos = self.get_empty_cells(1)
-        self.grid[sub_optimal_goal_pos[0], sub_optimal_goal_pos[1]] = 3
-        self.sub_opt_location = sub_optimal_goal_pos
+            # add the optimal goal
+            optimal_goal_pos = self.get_empty_cells(1)
+            self.grid[optimal_goal_pos] = 4
 
+        else:
+            # place sub_opt goal in room 1 and place optimal goal in room 2
+            sub_optimal_goal_pos = self.get_empty_cells(room=1)
+            self.grid[sub_optimal_goal_pos] = 3
+            optimal_goal_pos = self.get_empty_cells(room=2)
+            self.grid[optimal_goal_pos] = 4        
+            
+    def get_empty_cells(self, n_cells=1, room=None):
 
-        # add the optimal goal
-        optimal_goal = self.get_empty_cells(1)
-        self.grid[optimal_goal[0], optimal_goal[1]] = 4
-        self.opt_location = optimal_goal
-        
-    def get_empty_cells(self, n_cells):
-        empty_cells_coord = np.where(self.grid == 0)       
-        selected_indices = np.random.choice(len(empty_cells_coord[0]), n_cells)
-        selected_cells = empty_cells_coord[0][selected_indices], empty_cells_coord[1][selected_indices]
+        if not room:
+            empty_cells_coord = np.where(self.grid == 0)       
+            selected_indices = np.random.choice(len(empty_cells_coord[0]), n_cells)
+            selected_cells = empty_cells_coord[0][selected_indices], empty_cells_coord[1][selected_indices]
 
-        return selected_cells
+            return selected_cells
+
+        elif room == 1:
+            x = np.random.choice(range(1,round(self.size/2) - 1), 1)
+            y = np.random.choice(range(1,round(self.size/2) - 1), 1)
+        elif room == 2:
+            x = np.random.choice(range(1,round(self.size/2) - 1), 1)
+            y = np.random.choice(range(round(self.size/2) + 1, self.size - 1), 1)
+        elif room == 3:
+            x = np.random.choice(range(round(self.size/2) + 1, self.size - 1), 1)
+            y = np.random.choice(range(1,round(self.size/2) - 1), 1)
+        elif room == 4:
+            x = np.random.choice(range(round(self.size/2) + 1, self.size - 1), 1)
+            y = np.random.choice(range(round(self.size/2) + 1, self.size - 1), 1)
+
+        return (x,y)
+
 
     def move(self, current_cell, action):
         # find the next cell    
@@ -122,7 +140,6 @@ class rooms():
             reward = self.rewards["obstacle"]
         elif self.grid[next_cell] == 2:
             reward = self.rewards["tornado"]
-            ## NEW ##
             done = True
         elif self.grid[next_cell] == 3:
             reward = self.rewards["sub_opt_goal"]
@@ -148,13 +165,12 @@ class rooms():
         new_state = self.states[tuple(self.state_indices)]
         return new_state, time_reward + reward, done
     
-    ## NEW ##
     def display(self):
         #making a copy of the grid
         temp_grid = self.grid.copy()
         
         #setting the location of the agent - A
-        temp_grid[self.agent_position[0], self.agent_position[1]] = 5
+        temp_grid[self.agent_position] = 5
         
         display_grid = ''
         
@@ -169,21 +185,32 @@ class rooms():
         #displaying the grid
         print(display_grid)
 
-    def reset(self):
+    def reset(self, agent_start_pos=None):
         # reset the time
         self.time_elapsed = 0
-        if self.to_test == False:    
+
+        if not self.testing:    
             # set the agent starting position
-            agent_position = self.get_empty_cells(1)
-            self.agent_position = (agent_position[0].item(), agent_position[1].item())
-            self.update_tornado_positions()
+            self.agent_position = self.get_empty_cells(1)
+            
         else:
-            self.agent_position = (self.temp_agent_position[0], self.temp_agent_position[1]) 
+            # place the agent according to test choice
+            if agent_start_pos == "close_to_sub":
+                self.agent_position = self.get_empty_cells(room=3)
+
+            elif agent_start_pos == "close_to_opt":
+                self.agent_position = self.get_empty_cells(room=4)
+
+            elif agent_start_pos == "middle":
+                self.agent_position = self.middle_door_pos
+            
         # get the starting state
         agent_index = self.state_index_finder[self.agent_position]
         self.state_indices[0] = agent_index
         state = self.states[tuple(self.state_indices)]
+
         return state
+
 
     def update_tornado_positions(self):
         # moves each tornado in a random direction
@@ -199,50 +226,11 @@ class rooms():
                 self.tornado_positions[0][i] = next_cell[0]
                 self.tornado_positions[1][i] = next_cell[1]
                 self.state_indices[i+1] = self.state_index_finder[next_cell]
-                
-    def reset_to_test(self):
-        #pick two rooms at random for goals
-        combo = [[1,2], [1,3], [2,4], [3,4]]
-        room1, room2 = random.choice(combo)
-        
-        ## removing Sub-Optimal and Optimal locations
-        self.grid[self.sub_opt_location[0], self.sub_opt_location[1]] = 0
-        self.grid[self.opt_location[0], self.opt_location[1]] = 0
-        
-        
-        ## 
-        if room1 == 1 and room2 == 2:
-            self.grid[random.sample(range(1,round(self.size/2) - 1),1),random.sample(range(1,round(self.size/2) - 1),1)] = 4
-            self.grid[random.sample(range(1,round(self.size/2) - 1),1),random.sample(range(round(self.size/2) + 1, self.size - 2),1)] = 3
-            
-            self.temp_agent_position = self.agent_position = self.doors[3]
-            self.grid[self.agent_position[0], self.agent_position[1]] = 5
-            
-        elif room1 == 1 and room2 == 3:
-            self.grid[random.sample(range(1,round(self.size/2) - 1),1),random.sample(range(1,round(self.size/2) - 1),1)] = 4
-            self.grid[random.sample(range(round(self.size/2) + 1, self.size - 2),1),random.sample(range(1,round(self.size/2) - 1),1)] = 3
-            
-            self.temp_agent_position = self.agent_position = self.doors[2]
-            self.grid[self.agent_position[0], self.agent_position[1]] = 5
-            
-        elif room1 == 2 and room2 == 4:
-            self.grid[random.sample(range(1,round(self.size/2) - 1),1),random.sample(range(round(self.size/2) + 1, self.size - 2),1)] = 4
-            self.grid[random.sample(range(round(self.size/2) + 1, self.size - 2),1),random.sample(range(round(self.size/2) + 1, self.size - 2),1)] = 3
-            
-            self.temp_agent_position = self.agent_position = self.doors[1]
-            self.grid[self.agent_position[0], self.agent_position[1]] = 5
-            
-        elif room1 == 3 and room2 == 4:
-            self.grid[random.sample(range(round(self.size/2) + 1, self.size - 2),1),random.sample(range(1,round(self.size/2) - 1),1)] = 4
-            self.grid[random.sample(range(round(self.size/2) + 1, self.size - 2),1),random.sample(range(round(self.size/2) + 1, self.size - 2),1)] = 3
-            
-            self.temp_agent_position = self.agent_position = self.doors[0]
-            self.grid[self.agent_position[0], self.agent_position[1]] = 5
-            
-        
-        self.update_tornado_positions()
-        
-        self.to_test = True
+
+
+
+
+
             
             
             
