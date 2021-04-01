@@ -183,8 +183,7 @@ class rooms():
         
         ## Removing Tornadoes if found on the grid
         if len(self.tornado_positions):
-            for i, position in enumerate(zip(*self.tornado_positions)):
-                self.grid[position] = 0
+            self.grid[self.tornado_positions] = 0
         
         # add the tornados & create the state_indices
         self.tornado_positions = self.get_empty_cells(self.tornados)
