@@ -9,6 +9,7 @@ class rooms():
         self.size = size
         self.grid= np.zeros((size, size), dtype = np.int8)
         self.agent_position= None
+        self.tornado_positions =[]
         self.time_elapsed = 0
         self.time_limit = (size ** 2) * 5
         self.tornados = round(size / 5)
@@ -64,17 +65,8 @@ class rooms():
         self.middle_door_pos = (random_x, round(size/2))
         self.grid[self.middle_door_pos] = 0
         self.grid[round(size/2), random_y] = 0
-
-        # add the tornados & create the state_indices
-        self.tornado_positions = self.get_empty_cells(self.tornados)
-        self.grid[self.tornado_positions] = 2
-
-        # state indices are in format ([agent_ind., tornado1_ind., tornado2_ind.,...])
-        self.state_indices = np.zeros(self.tornados+1, dtype=int)
-        for i, position in enumerate(zip(*self.tornado_positions)):
-            tornado_index = self.state_index_finder[position]
-            self.state_indices[i+1] = tornado_index
-
+       
+        
         if not testing:
             # add the sub-optimal goal
             sub_optimal_goal_pos = self.get_empty_cells(1)
@@ -188,7 +180,23 @@ class rooms():
     def reset(self, agent_start_pos=None):
         # reset the time
         self.time_elapsed = 0
-
+        
+        ## Removing Tornadoes if found on the grid
+        if len(self.tornado_positions):
+            for i, position in enumerate(zip(*self.tornado_positions)):
+                self.grid[position] = 0
+        
+        # add the tornados & create the state_indices
+        self.tornado_positions = self.get_empty_cells(self.tornados)
+        self.grid[self.tornado_positions] = 2
+        
+        # state indices are in format ([agent_ind., tornado1_ind., tornado2_ind.,...])
+        self.state_indices = np.zeros(self.tornados+1, dtype=int)
+        for i, position in enumerate(zip(*self.tornado_positions)):
+            tornado_index = self.state_index_finder[position]
+            self.state_indices[i+1] = tornado_index
+            
+        
         if not self.testing:    
             # set the agent starting position
             self.agent_position = self.get_empty_cells(1)
@@ -226,12 +234,3 @@ class rooms():
                 self.tornado_positions[0][i] = next_cell[0]
                 self.tornado_positions[1][i] = next_cell[1]
                 self.state_indices[i+1] = self.state_index_finder[next_cell]
-
-
-
-
-
-            
-            
-            
-            
