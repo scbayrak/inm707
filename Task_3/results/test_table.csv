@@ -1,0 +1,2 @@
+,test_no,env,epochs,no_batches,hidden_dim,gamma,gae_lambda,lr_actor,lr_critic,clip,T,max_score,no_games,save,Episode,Max average score,Learning Iterations
+0,1,CartPole-v0,4,2,256,0.99,0.95,0.0003,0.0005,0.2,20,200,100,False,70,200.0,312
