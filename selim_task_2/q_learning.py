@@ -7,7 +7,7 @@ actions_indexes = {"up":0, "down":1, "left":2, "right":3}
 
 class Policy():
     
-    def __init__(self, policy_type="greedy", epsilon=0.9, decay=0.99):
+    def __init__(self, policy_type="greedy", epsilon=0.95, decay=0.99):
        
         self.policy_type = policy_type
         self.epsilon = epsilon
@@ -38,11 +38,12 @@ class Policy():
         self.epsilon = self.epsilon_start
 
 class q_learning():
-    def __init__(self, env, gamma, alpha):
+    def __init__(self, env, gamma, alpha, agent_start_pos):
         self.env = env
         self.gamma = gamma
         self.alpha = alpha
         self.q_values = np.zeros((env.states.size, 4))
+        self.agent_start_pos = agent_start_pos
 
     def update_q_values(self, s_current, action, r_next, s_next, action_next):
         action = actions_indexes[action]
@@ -50,9 +51,9 @@ class q_learning():
         self.q_values[s_current, action] += self.alpha * (r_next + self.gamma * self.q_values[s_next, action_next] - self.q_values[s_current, action])
 
     def q_learning_episode(self, policy):
-        state = self.env.reset()
+        state = self.env.reset(self.agent_start_pos)
         done = False
-        policy.reset()
+        # policy.reset()
         while not done:
             action = policy(state, self.q_values)
             next_cell = self.env.move(self.env.agent_position, action)
@@ -60,54 +61,56 @@ class q_learning():
             greedy_action_next = actions_dict[np.argmax(self.q_values[s_next])]
             self.update_q_values(state, action, r, s_next, greedy_action_next)
             state = s_next
-            policy.update_epsilon()
 
     def run_multiple_episodes(self, episodes_no, policy):
 
         for episode in range(episodes_no):
-            self.q_learning_episode(policy)   
+            self.q_learning_episode(policy)
+            policy.update_epsilon()
+            # print(f"epsilon: {policy.epsilon}") 
+        policy.reset()   
         return self.q_values
 
 class experiments():
-    def __init__(self, env, learning, policy, number_exp):
+    def __init__(self, env, learning, policy, number_exp, agent_start_pos):
         self.env = env
         self.learning = learning
         self.policy = policy
         self.number_exp = number_exp
-
-    def run_single_experiment(self): 
-        state = self.env.reset()
-        done = False
-        
-        total_reward = 0
-        
-        while not done:
-            action = self.policy(state, self.learning.q_values)
-            next_cell = self.env.move(self.env.agent_position, action)
-            state, reward, done = self.env.step(next_cell)
-            total_reward += reward
-        
-        return total_reward
+        self.agent_start_pos = agent_start_pos
 
     def run_experiments(self):
-        all_rewards = []
+
+        all_rewards = np.zeros(self.number_exp)
         
         for experiment in range(self.number_exp):
-            
-            final_reward = self.run_single_experiment()
-            all_rewards.append(final_reward)
+
+            state = self.env.reset(self.agent_start_pos)
+            done = False
+        
+            total_reward = 0
+        
+            while not done:
+                action = self.policy(state, self.learning.q_values)
+                next_cell = self.env.move(self.env.agent_position, action)
+                state, reward, done = self.env.step(next_cell)
+                total_reward += reward
+
+            all_rewards[experiment] = total_reward
 
         mean_reward = np.mean(all_rewards)
         
         return mean_reward
 
-grid = rooms(10)
-learning = q_learning(grid, 0.99, 0.1)
-e_greedy = Policy("e-greedy", 0.9, 0.99)
+grid = rooms(10, testing=True)
+learning = q_learning(grid, 0.99, 0.1, agent_start_pos="close_to_opt")
+e_greedy = Policy("e-greedy", 0.99, 0.95)
 greedy = Policy(policy_type="greedy")
-experiment = experiments(grid, learning, greedy, 100)
+experiment = experiments(grid, learning, greedy, 100, agent_start_pos="close_to_opt")
 
-for session in range(100):
+for session in range(1000):
             learning.run_multiple_episodes(100, e_greedy)
             print(f"Mean reward: {experiment.run_experiments()}")
+            
+
     

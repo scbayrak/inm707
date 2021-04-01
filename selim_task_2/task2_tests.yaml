@@ -1,0 +1,10 @@
+Tests:
+
+  - test_no : 1
+    gamma : 0.99 # discount factor
+    alpha : 0.1 # learning rate
+    agent_start_pos : close_to_opt
+    epsilon : 0.99 # random action probability
+    decay : 0.95 # epsilon decay rate
+    batch_episodes : 100 # the size of a batch of q_learning episodes
+    total_episodes : 100000 # the total number of q_learning episodes
