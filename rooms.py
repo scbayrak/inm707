@@ -126,7 +126,6 @@ class rooms():
     def step(self, next_cell):
         done = False
         time_reward = -1
-        reason = None
         self.update_tornado_positions()
 
         # check the next cell type and update reward & done
@@ -138,11 +137,9 @@ class rooms():
         elif self.grid[next_cell] == 3:
             reward = self.rewards["sub_opt_goal"]
             done = True
-            reason = 1
         elif self.grid[next_cell] == 4:
             reward = self.rewards["opt_goal"]
             done = True
-            reason = 0
         else:
             reward = 0
 
@@ -159,7 +156,7 @@ class rooms():
         agent_state_index = self.state_index_finder[self.agent_position]
         self.state_indices[0] = agent_state_index
         new_state = self.states[tuple(self.state_indices)]
-        return new_state, time_reward + reward, done, reason
+        return new_state, time_reward + reward, done
     
     def display(self):
         #making a copy of the grid
