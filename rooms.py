@@ -1,7 +1,6 @@
 import numpy as np
 import random
 
-
 actions_dict = {0:"up", 1:"down", 2:"left", 3:"right"}
 
 class rooms():
@@ -11,7 +10,7 @@ class rooms():
         self.agent_position= None
         self.tornado_positions =[]
         self.time_elapsed = 0
-        self.time_limit = (size ** 2) * 5
+        self.time_limit = (size ** 2) * 2
         self.tornados = round(size / 5)
         self.testing = testing
         
@@ -20,8 +19,8 @@ class rooms():
     
         # customizable rewards
         self.rewards = {"empty":0, 
-                        "obstacle":-3, 
-                        "tornado":-25, 
+                        "obstacle":-5, 
+                        "tornado":-size**2, 
                         "sub_opt_goal":size**2, 
                         "opt_goal":(size**2)*5}
         
@@ -44,6 +43,8 @@ class rooms():
         states = np.arange((size**2) ** (self.tornados + 1), dtype=int)
         self.states = states.reshape(states_shape)
         
+        # state indices are in format ([agent_ind., tornado1_ind., tornado2_ind.,...])
+        self.state_indices = np.zeros(self.tornados+1, dtype=int)
         
         # set the borders
         self.grid[[0, -1],:] = 1
@@ -51,23 +52,23 @@ class rooms():
 
 
         # create the rooms
-        self.grid[:,round(size/2)] = 1
-        self.grid[round(size/2),:] = 1
+        self.grid[:,round(size/2)-1] = 1
+        self.grid[round(size/2)-1,:] = 1
 
 
         # create the doors to the rooms
-        random_x, random_y = np.random.choice(range(1,round(size/2)), 2)
-        self.grid[random_x,round(size/2)] = 0
-        self.grid[round(size/2), random_y] = 0
+        random_x, random_y = np.random.choice(range(1,round(size/2)-1), 2)
+        self.grid[random_x,round(size/2)-1] = 0
+        self.grid[round(size/2)-1, random_y] = 0
       
-        random_x, random_y = np.random.choice(range(-2,-round(size/2)+1, -1), 2)
+        random_x, random_y = np.random.choice(range(-2,-round(size/2), -1), 2)
         # set the middle_door for testing
-        self.middle_door_pos = (random_x, round(size/2))
+        self.middle_door_pos = (random_x, round(size/2)-1)
         self.grid[self.middle_door_pos] = 0
-        self.grid[round(size/2), random_y] = 0
+        self.grid[round(size/2)-1, random_y] = 0
        
         
-        if not testing:
+        if not self.testing:
             # add the sub-optimal goal
             sub_optimal_goal_pos = self.get_empty_cells(1)
             self.grid[sub_optimal_goal_pos] = 3
@@ -88,24 +89,25 @@ class rooms():
         if not room:
             empty_cells_coord = np.where(self.grid == 0)       
             selected_indices = np.random.choice(len(empty_cells_coord[0]), n_cells)
-            selected_cells = empty_cells_coord[0][selected_indices], empty_cells_coord[1][selected_indices]
+            selected_cells = empty_cells_coord[0][selected_indices],\
+                             empty_cells_coord[1][selected_indices]
 
             return selected_cells
 
-        elif room == 1:
-            x = np.random.choice(range(1,round(self.size/2) - 1), 1)
-            y = np.random.choice(range(1,round(self.size/2) - 1), 1)
-        elif room == 2:
-            x = np.random.choice(range(1,round(self.size/2) - 1), 1)
-            y = np.random.choice(range(round(self.size/2) + 1, self.size - 1), 1)
-        elif room == 3:
-            x = np.random.choice(range(round(self.size/2) + 1, self.size - 1), 1)
-            y = np.random.choice(range(1,round(self.size/2) - 1), 1)
-        elif room == 4:
-            x = np.random.choice(range(round(self.size/2) + 1, self.size - 1), 1)
-            y = np.random.choice(range(round(self.size/2) + 1, self.size - 1), 1)
+        else:
 
-        return (x,y)
+            if room == 1:
+                x, y = np.random.choice(range(1,round(self.size/2) - 1), 2)
+            elif room == 2:
+                x = np.random.choice(range(1,round(self.size/2) - 1), 1)
+                y = np.random.choice(range(round(self.size/2), self.size - 1), 1)
+            elif room == 3:
+                x = np.random.choice(range(round(self.size/2), self.size - 1), 1)
+                y = np.random.choice(range(1,round(self.size/2) - 1), 1)
+            elif room == 4:
+                x, y = np.random.choice(range(round(self.size/2), self.size - 1), 2)
+
+            return (x,y)
 
 
     def move(self, current_cell, action):
@@ -124,7 +126,6 @@ class rooms():
     def step(self, next_cell):
         done = False
         time_reward = -1
-        
         self.update_tornado_positions()
 
         # check the next cell type and update reward & done
@@ -178,24 +179,16 @@ class rooms():
         print(display_grid)
 
     def reset(self, agent_start_pos=None):
+        if self.testing and not agent_start_pos:
+            raise Exception("Please enter a starting position for the agent")
         # reset the time
         self.time_elapsed = 0
         
+
         ## Removing Tornadoes if found on the grid
         if len(self.tornado_positions):
             self.grid[self.tornado_positions] = 0
-        
-        # add the tornados & create the state_indices
-        self.tornado_positions = self.get_empty_cells(self.tornados)
-        self.grid[self.tornado_positions] = 2
-        
-        # state indices are in format ([agent_ind., tornado1_ind., tornado2_ind.,...])
-        self.state_indices = np.zeros(self.tornados+1, dtype=int)
-        for i, position in enumerate(zip(*self.tornado_positions)):
-            tornado_index = self.state_index_finder[position]
-            self.state_indices[i+1] = tornado_index
-            
-        
+              
         if not self.testing:    
             # set the agent starting position
             self.agent_position = self.get_empty_cells(1)
@@ -214,10 +207,19 @@ class rooms():
         # get the starting state
         agent_index = self.state_index_finder[self.agent_position]
         self.state_indices[0] = agent_index
+
+        # add the tornados 
+        self.tornado_positions = self.get_empty_cells(self.tornados)
+        self.grid[self.tornado_positions] = 2
+        
+        
+        for i, position in enumerate(zip(*self.tornado_positions)):
+            tornado_index = self.state_index_finder[position]
+            self.state_indices[i+1] = tornado_index
+
         state = self.states[tuple(self.state_indices)]
 
         return state
-
 
     def update_tornado_positions(self):
         # moves each tornado in a random direction
@@ -233,3 +235,4 @@ class rooms():
                 self.tornado_positions[0][i] = next_cell[0]
                 self.tornado_positions[1][i] = next_cell[1]
                 self.state_indices[i+1] = self.state_index_finder[next_cell]
+
