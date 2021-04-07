@@ -1,8 +1,12 @@
 import gym
+import numpy as np
 from model import PPO
 from PPO_learning import PpoLearning
 import yaml
 import pandas as pd
+import matplotlib.pyplot as plt
+
+
 
 FILENAME = "tests.yaml"
 
@@ -26,18 +30,48 @@ def run_tests():
         
         env = gym.make(test['env'])
         env.reset()
+        hyp_params = []
+        hyp_params_values = []
 
         ppo = PPO(env, test['T'], test['hidden_dim'], test['gamma'], 
         test['gae_lambda'], test['clip'], test['no_batches'],
         test['epochs'], test['lr_actor'], test['lr_critic'])
 
         training = PpoLearning(test['no_games'], ppo, test['max_score'], test['save'])
-        avg_score, game, iters = training.train()
+        avg_score, game, iters, total_average, actor_loss, critic_loss = training.train()
 
         df.loc[i,'Episode'] = game
         df.loc[i,'Max average score'] = avg_score
         df.loc[i,'Learning Iterations'] = iters
-
+        
+        #print(test['no_games'])
+        #print(total_average[0])
+        #print(test['no_games'])
+        #print(len(total_average))
+        
+        for t in test:
+            hyp_params.append(t)
+            hyp_params_values.append(test[t])
+        
+        print(hyp_params_values)
+        
+       
+        x = np.linspace(1,int(test['no_games']),int(test['no_games']))#/len(total_average)))
+        plt.subplot(2,2,1)
+        plt.plot(x, total_average)
+        plt.title("Average per game")
+        
+        
+        plt.subplot(2,2,2)
+        plt.plot(x, actor_loss)
+        plt.title("Actor loss")
+        
+        plt.subplot(2,2,3)
+        plt.plot(x, critic_loss)
+        plt.title("critic loss")
+        
+        plt.show()
+      
     # save to csv file
     filename = 'results/' + 'test_table.csv'
     df.to_csv(filename)

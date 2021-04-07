@@ -14,7 +14,11 @@ class PpoLearning():
         self.save = save
 
     def train(self):
-
+        
+        total_average = []
+        total_loss_actor = []
+        total_loss_critic = []
+        
         game_rew_hist = [] # list to hold the total rewards per game
         iters = 0
         step = 0
@@ -38,20 +42,31 @@ class PpoLearning():
                 state = next_state
 
             game_rew_hist.append(game_total_rew)
-
+            
+            total_average.append(game_total_rew)
+            total_loss_actor.append(sum(self.ppo.actor_losses)/len(self.ppo.actor_losses))
+            total_loss_critic.append(sum(self.ppo.critic_losses)/len(self.ppo.critic_losses))
+            
             if (game) % 10 == 0:
                 avg_score = np.mean(game_rew_hist[-10:])
 
                 if avg_score > best_score:
                     best_score = avg_score
+                    
                     if self.save:
                         self.ppo.save_weights()
-
-                print('Episode: ', game, 'average score:', avg_score, 
-                'learning_iterations:', iters)
+                        
+                
+                print('Episode:', game, '\t | \taverage score:', avg_score, 
+                '\t | \tlearning_iterations:', iters)
 
                 if avg_score == self.max_score:
                     print(f"Maximum score of {self.max_score} reached")
                     break
+                
+                #total_average.append(avg_score)
+                
+                
+            
 
-        return best_score, game, iters
+        return best_score, game, iters, total_average , total_loss_critic, total_loss_actor, total_loss_critic

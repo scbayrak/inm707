@@ -72,6 +72,9 @@ class PPO():
                 self.critic_optim = optim.Adam(self.critic.parameters(), lr=lr_critic)
 
                 self.memory = Memory(no_batches, T)
+                
+                self.actor_losses = []
+                self.critic_losses = []
 
     def save_weights(self):
         
@@ -96,13 +99,15 @@ class PPO():
         return action, log_prob, state_value
 
     def optimize(self):
-
+        
         for epoch in range(self.epochs):
                     
             batch_items = self.memory.get_batches()
             states, values, actions, log_probs,\
             rewards, dones = batch_items[0] 
             batch_inds = batch_items[1]
+            self.actor_losses = []
+            self.critic_losses = []
 
             # calculate the Generalized Advantage Estimation
             advantage = [0]
@@ -143,7 +148,10 @@ class PPO():
                                     1+self.clip) * advantage[batch]
 
                 actor_loss = -torch.min(surrogate, clipped_surrogate).mean()
-                # print(f"Actor loss {actor_loss}")
+                #print(f"Actor loss {actor_loss}")
+                
+                self.actor_losses.append(actor_loss)
+                
 
                 # advantage = returns - values
                 returns = (advantage[batch] + values[batch]).float()
@@ -151,13 +159,18 @@ class PPO():
                 
                 loss_funct = nn.MSELoss()
                 critic_loss = loss_funct(returns, critic_values)
-                # print(f"Critic loss {critic_loss}")
+                
+                self.critic_losses.append(critic_loss)
+                #print(f"Critic loss {critic_loss}")
+                
 
                 self.actor_optim.zero_grad()
                 actor_loss.backward()
                 self.actor_optim.step()
+                #print(actor_loss)
 
                 self.critic_optim.zero_grad()
                 critic_loss.backward()
                 self.critic_optim.step()
 
+            
