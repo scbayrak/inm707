@@ -1,2 +1,10 @@
 
 Selim_task_2/.DS_Store
+Selim_task_2/__pycache__/q_learning.cpython-36.pyc
+*.pyc
+Selim_task_2/results/.DS_Store
+Selim_task_2/results/charts/.DS_Store
+.DS_Store
+Selim_task_2/trial.py
+Task_3/.DS_Store
+Task_3/.DS_Store
