@@ -12,7 +12,6 @@ def run_tests():
                 # scalar values to Python the dictionary format
                 tests = yaml.safe_load(file)
 
-
     # create a dataframe to keep the results 
     test_dict = tests['Tests']
     df = pd.DataFrame(test_dict)

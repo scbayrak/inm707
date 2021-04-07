@@ -11,7 +11,7 @@ class rooms():
         self.tornado_positions =[]
         self.time_elapsed = 0
         self.time_limit = (size ** 2)
-        self.tornados = int(size / 5)
+        self.tornados = int(size / 5) - 1
         self.testing = testing
         
         # needed for testing
@@ -238,7 +238,3 @@ class rooms():
                 self.tornado_positions[0][i] = next_cell[0]
                 self.tornado_positions[1][i] = next_cell[1]
                 self.state_indices[i+1] = self.state_index_finder[next_cell]
-
-# room = rooms(10, testing=True)
-# room.reset(agent_start_pos='middle')
-# room.display()

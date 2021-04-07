@@ -137,20 +137,12 @@ class experiments():
 
         ax1 = plt.subplot(gs[0:3, :1], label = 'Mean Rewards')
         ax1.set_title('Mean Rewards')
-        # y_1 = self.mean_rewards
         ax1.scatter(x, self.mean_rewards, s=5)
-        # sns.regplot(x=x, y=y_1, order=4, scatter_kws={"s": 5}, ci=None, ax=ax1)
         ax1.set(xlabel='Iteration', ylabel='Mean Reward')
 
         ax2 = plt.subplot(gs[0:3, 1:])
-        # y_2 = self.sub_goals
-        # y_3 = self.opt_goals
         ax2.scatter(x, self.sub_goals, s=5, label='Sub-optimal Goal')
         ax2.scatter(x, self.opt_goals, s=5, label='Optimal Goal')
-        # sns.regplot(x=x, y=y_2, order=3, scatter_kws={"s": 5}, line_kws={'color': 'm'},
-        #                                     ci=None, ax=ax2, label='Sub-optimal Goal')
-        # sns.regplot(x=x, y=y_3, order=3, scatter_kws={"s": 5}, line_kws={'color': 'r'},
-        #                                     ci=None, ax=ax2, label='Optimal Goal')
         ax2.set_title('Goal Success Percentage by Type')
         ax2.set(xlabel='Iteration', ylabel='Success Percentage (%)')
         ax2.legend(loc=0)
