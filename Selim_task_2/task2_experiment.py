@@ -50,5 +50,3 @@ def run_tests():
         experiment.generate_results(test["test_no"], test)
 
     return results
-
-run_tests()
