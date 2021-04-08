@@ -614,3 +614,18 @@ Tests:
     max_score : 200 # max score possible for the environment
     no_games : 300
     save : False
+
+  # - test_no : 500 ######## For debugging
+  #   env : CartPole-v0
+  #   epochs : 2 # number of epochs per learning
+  #   no_batches : 2 # number of batches for splitting the timesteps
+  #   hidden_dim : 256
+  #   gamma : 0.99 # discount factor
+  #   gae_lambda : 0.95 # gae smoothing parameter
+  #   lr_actor : 0.0003
+  #   lr_critic : 0.0003
+  #   clip : 0.2 # PPO clipping epsilon parameter
+  #   T : 20 # timesteps per each learning
+  #   max_score : 200 # max score possible for the environment
+  #   no_games : 150
+  #   save : False
