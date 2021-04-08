@@ -88,11 +88,11 @@ class PPO():
         distribution = Categorical(self.actor(state))
         action = distribution.sample() 
         log_prob = torch.squeeze(distribution.log_prob(action)).item()
+        action = torch.squeeze(action).item()
 
         state_value = self.critic(state)  
         state_value = torch.squeeze(state_value).item()
-        action = torch.squeeze(action).item()
-
+        
         return action, log_prob, state_value
 
     def optimize(self):
@@ -116,10 +116,11 @@ class PPO():
     
             # normalize advantage
             advantage = torch.tensor(advantage).to(device)
-            advantage = advantage / 20
+            # advantage = (advantage - advantage.mean()) / (advantage.std() + 1e-8)
+            # The simpler form of normalization below 
+            advantage = advantage / 10
 
             values = torch.tensor(values).to(device)
-
 
             for batch in batch_inds:
                 states_batch = torch.tensor(states[batch], dtype=torch.float).to(device)
@@ -147,11 +148,9 @@ class PPO():
 
                 # advantage = returns - values
                 returns = (advantage[batch] + values[batch]).float()
-
-                
+     
                 loss_funct = nn.MSELoss()
                 critic_loss = loss_funct(returns, critic_values)
-                # print(f"Critic loss {critic_loss}")
 
                 self.actor_optim.zero_grad()
                 actor_loss.backward()
