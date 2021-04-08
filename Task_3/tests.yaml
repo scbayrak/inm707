@@ -7,12 +7,12 @@ Tests:
     hidden_dim : 256
     gamma : 0.99 # discount factor
     gae_lambda : 0.95 # gae smoothing parameter
-    lr_actor : 0.0003
+    lr_actor : 0.0001
     lr_critic : 0.0005
     clip : 0.2 # PPO clipping epsilon parameter
     T : 20 # timesteps per each learning
     max_score : 200 # max score possible for the environment
-    no_games : 100
+    no_games : 300
     save : False
 
   - test_no : 2
@@ -22,10 +22,460 @@ Tests:
     hidden_dim : 256
     gamma : 0.99 # discount factor
     gae_lambda : 0.95 # gae smoothing parameter
-    lr_actor : 0.0003
+    lr_actor : 0.0002
     lr_critic : 0.0005
     clip : 0.2 # PPO clipping epsilon parameter
     T : 20 # timesteps per each learning
     max_score : 200 # max score possible for the environment
-    no_games : 100
+    no_games : 300
+    save : False
+
+  - test_no : 3
+    env : CartPole-v0
+    epochs : 4 # number of epochs per learning
+    no_batches : 2 # number of batches for splitting the timesteps
+    hidden_dim : 256
+    gamma : 0.99 # discount factor
+    gae_lambda : 0.95 # gae smoothing parameter
+    lr_actor : 0.0005
+    lr_critic : 0.0005
+    clip : 0.2 # PPO clipping epsilon parameter
+    T : 20 # timesteps per each learning
+    max_score : 200 # max score possible for the environment
+    no_games : 300
+    save : False
+
+  - test_no : 4
+    env : CartPole-v0
+    epochs : 4 # number of epochs per learning
+    no_batches : 2 # number of batches for splitting the timesteps
+    hidden_dim : 256
+    gamma : 0.99 # discount factor
+    gae_lambda : 0.95 # gae smoothing parameter
+    lr_actor : 0.0004
+    lr_critic : 0.0005
+    clip : 0.2 # PPO clipping epsilon parameter
+    T : 20 # timesteps per each learning
+    max_score : 200 # max score possible for the environment
+    no_games : 300
+    save : False
+
+  - test_no : 5
+    env : CartPole-v0
+    epochs : 4 # number of epochs per learning
+    no_batches : 2 # number of batches for splitting the timesteps
+    hidden_dim : 256
+    gamma : 0.99 # discount factor
+    gae_lambda : 0.95 # gae smoothing parameter
+    lr_actor : 0.0005
+    lr_critic : 0.0005
+    clip : 0.2 # PPO clipping epsilon parameter
+    T : 20 # timesteps per each learning
+    max_score : 200 # max score possible for the environment
+    no_games : 300
+    save : False
+
+  - test_no : 6
+    env : CartPole-v0
+    epochs : 4 # number of epochs per learning
+    no_batches : 2 # number of batches for splitting the timesteps
+    hidden_dim : 256
+    gamma : 0.99 # discount factor
+    gae_lambda : 0.95 # gae smoothing parameter
+    lr_actor : 0.0005
+    lr_critic : 0.0001
+    clip : 0.2 # PPO clipping epsilon parameter
+    T : 20 # timesteps per each learning
+    max_score : 200 # max score possible for the environment
+    no_games : 300
+    save : False
+
+  - test_no : 7
+    env : CartPole-v0
+    epochs : 4 # number of epochs per learning
+    no_batches : 2 # number of batches for splitting the timesteps
+    hidden_dim : 256
+    gamma : 0.99 # discount factor
+    gae_lambda : 0.95 # gae smoothing parameter
+    lr_actor : 0.0005
+    lr_critic : 0.0002
+    clip : 0.2 # PPO clipping epsilon parameter
+    T : 20 # timesteps per each learning
+    max_score : 200 # max score possible for the environment
+    no_games : 300
+    save : False
+
+  - test_no : 8
+    env : CartPole-v0
+    epochs : 4 # number of epochs per learning
+    no_batches : 2 # number of batches for splitting the timesteps
+    hidden_dim : 256
+    gamma : 0.99 # discount factor
+    gae_lambda : 0.95 # gae smoothing parameter
+    lr_actor : 0.0005
+    lr_critic : 0.0003
+    clip : 0.2 # PPO clipping epsilon parameter
+    T : 20 # timesteps per each learning
+    max_score : 200 # max score possible for the environment
+    no_games : 300
+    save : False
+
+  - test_no : 9
+    env : CartPole-v0
+    epochs : 4 # number of epochs per learning
+    no_batches : 2 # number of batches for splitting the timesteps
+    hidden_dim : 256
+    gamma : 0.99 # discount factor
+    gae_lambda : 0.95 # gae smoothing parameter
+    lr_actor : 0.0005
+    lr_critic : 0.0004
+    clip : 0.2 # PPO clipping epsilon parameter
+    T : 20 # timesteps per each learning
+    max_score : 200 # max score possible for the environment
+    no_games : 300
+    save : False
+
+  - test_no : 10
+    env : CartPole-v0
+    epochs : 1 # number of epochs per learning
+    no_batches : 2 # number of batches for splitting the timesteps
+    hidden_dim : 256
+    gamma : 0.99 # discount factor
+    gae_lambda : 0.95 # gae smoothing parameter
+    lr_actor : 0.0003
+    lr_critic : 0.0003
+    clip : 0.2 # PPO clipping epsilon parameter
+    T : 20 # timesteps per each learning
+    max_score : 200 # max score possible for the environment
+    no_games : 300
+    save : False
+
+  - test_no : 11
+    env : CartPole-v0
+    epochs : 2 # number of epochs per learning
+    no_batches : 2 # number of batches for splitting the timesteps
+    hidden_dim : 256
+    gamma : 0.99 # discount factor
+    gae_lambda : 0.95 # gae smoothing parameter
+    lr_actor : 0.0003
+    lr_critic : 0.0003
+    clip : 0.2 # PPO clipping epsilon parameter
+    T : 20 # timesteps per each learning
+    max_score : 200 # max score possible for the environment
+    no_games : 300
+    save : False
+
+  - test_no : 12
+    env : CartPole-v0
+    epochs : 3 # number of epochs per learning
+    no_batches : 2 # number of batches for splitting the timesteps
+    hidden_dim : 256
+    gamma : 0.99 # discount factor
+    gae_lambda : 0.95 # gae smoothing parameter
+    lr_actor : 0.0003
+    lr_critic : 0.0003
+    clip : 0.2 # PPO clipping epsilon parameter
+    T : 20 # timesteps per each learning
+    max_score : 200 # max score possible for the environment
+    no_games : 300
+    save : False
+
+  - test_no : 13
+    env : CartPole-v0
+    epochs : 5 # number of epochs per learning
+    no_batches : 2 # number of batches for splitting the timesteps
+    hidden_dim : 256
+    gamma : 0.99 # discount factor
+    gae_lambda : 0.95 # gae smoothing parameter
+    lr_actor : 0.0003
+    lr_critic : 0.0003
+    clip : 0.2 # PPO clipping epsilon parameter
+    T : 20 # timesteps per each learning
+    max_score : 200 # max score possible for the environment
+    no_games : 300
+    save : False
+
+  - test_no : 14  
+    env : CartPole-v0
+    epochs : 6 # number of epochs per learning
+    no_batches : 2 # number of batches for splitting the timesteps
+    hidden_dim : 256
+    gamma : 0.99 # discount factor
+    gae_lambda : 0.95 # gae smoothing parameter
+    lr_actor : 0.0003
+    lr_critic : 0.0003
+    clip : 0.2 # PPO clipping epsilon parameter
+    T : 20 # timesteps per each learning
+    max_score : 200 # max score possible for the environment
+    no_games : 300
+    save : False
+
+  - test_no : 15
+    env : CartPole-v0
+    epochs : 4 # number of epochs per learning
+    no_batches : 2 # number of batches for splitting the timesteps
+    hidden_dim : 256
+    gamma : 0.99 # discount factor
+    gae_lambda : 0.95 # gae smoothing parameter
+    lr_actor : 0.0003
+    lr_critic : 0.0003
+    clip : 0.2 # PPO clipping epsilon parameter
+    T : 20 # timesteps per each learning
+    max_score : 200 # max score possible for the environment
+    no_games : 300
+    save : False
+
+  - test_no : 16
+    env : CartPole-v0
+    epochs : 2 # number of epochs per learning
+    no_batches : 2 # number of batches for splitting the timesteps
+    hidden_dim : 256
+    gamma : 0.99 # discount factor
+    gae_lambda : 0.95 # gae smoothing parameter
+    lr_actor : 0.0003
+    lr_critic : 0.0003
+    clip : 0.2 # PPO clipping epsilon parameter
+    T : 20 # timesteps per each learning
+    max_score : 200 # max score possible for the environment
+    no_games : 300
+    save : False
+
+  - test_no : 17
+    env : CartPole-v0
+    epochs : 2 # number of epochs per learning
+    no_batches : 2 # number of batches for splitting the timesteps
+    hidden_dim : 64
+    gamma : 0.99 # discount factor
+    gae_lambda : 0.95 # gae smoothing parameter
+    lr_actor : 0.0003
+    lr_critic : 0.0003
+    clip : 0.2 # PPO clipping epsilon parameter
+    T : 20 # timesteps per each learning
+    max_score : 200 # max score possible for the environment
+    no_games : 300
+    save : False
+
+  - test_no : 18
+    env : CartPole-v0
+    epochs : 2 # number of epochs per learning
+    no_batches : 2 # number of batches for splitting the timesteps
+    hidden_dim : 128
+    gamma : 0.99 # discount factor
+    gae_lambda : 0.95 # gae smoothing parameter
+    lr_actor : 0.0003
+    lr_critic : 0.0003
+    clip : 0.2 # PPO clipping epsilon parameter
+    T : 20 # timesteps per each learning
+    max_score : 200 # max score possible for the environment
+    no_games : 300
+    save : False
+
+  - test_no : 19
+    env : CartPole-v0
+    epochs : 2 # number of epochs per learning
+    no_batches : 2 # number of batches for splitting the timesteps
+    hidden_dim : 256
+    gamma : 0.9 # discount factor
+    gae_lambda : 0.95 # gae smoothing parameter
+    lr_actor : 0.0003
+    lr_critic : 0.0003
+    clip : 0.2 # PPO clipping epsilon parameter
+    T : 20 # timesteps per each learning
+    max_score : 200 # max score possible for the environment
+    no_games : 300
+    save : False
+
+  - test_no : 20
+    env : CartPole-v0
+    epochs : 2 # number of epochs per learning
+    no_batches : 2 # number of batches for splitting the timesteps
+    hidden_dim : 256
+    gamma : 0.7 # discount factor
+    gae_lambda : 0.95 # gae smoothing parameter
+    lr_actor : 0.0003
+    lr_critic : 0.0003
+    clip : 0.2 # PPO clipping epsilon parameter
+    T : 20 # timesteps per each learning
+    max_score : 200 # max score possible for the environment
+    no_games : 300
+    save : False
+
+  - test_no : 21
+    env : CartPole-v0
+    epochs : 2 # number of epochs per learning
+    no_batches : 2 # number of batches for splitting the timesteps
+    hidden_dim : 256
+    gamma : 0.5 # discount factor
+    gae_lambda : 0.95 # gae smoothing parameter
+    lr_actor : 0.0003
+    lr_critic : 0.0003
+    clip : 0.2 # PPO clipping epsilon parameter
+    T : 20 # timesteps per each learning
+    max_score : 200 # max score possible for the environment
+    no_games : 300
+    save : False
+
+  - test_no : 22
+    env : CartPole-v0
+    epochs : 2 # number of epochs per learning
+    no_batches : 2 # number of batches for splitting the timesteps
+    hidden_dim : 256
+    gamma : 0.3 # discount factor
+    gae_lambda : 0.95 # gae smoothing parameter
+    lr_actor : 0.0003
+    lr_critic : 0.0003
+    clip : 0.2 # PPO clipping epsilon parameter
+    T : 20 # timesteps per each learning
+    max_score : 200 # max score possible for the environment
+    no_games : 300
+    save : False
+
+  - test_no : 23
+    env : CartPole-v0
+    epochs : 2 # number of epochs per learning
+    no_batches : 2 # number of batches for splitting the timesteps
+    hidden_dim : 256
+    gamma : 0.99 # discount factor
+    gae_lambda : 0.95 # gae smoothing parameter
+    lr_actor : 0.0003
+    lr_critic : 0.0003
+    clip : 0.1 # PPO clipping epsilon parameter
+    T : 20 # timesteps per each learning
+    max_score : 200 # max score possible for the environment
+    no_games : 300
+    save : False
+
+  - test_no : 24
+    env : CartPole-v0
+    epochs : 2 # number of epochs per learning
+    no_batches : 2 # number of batches for splitting the timesteps
+    hidden_dim : 256
+    gamma : 0.99 # discount factor
+    gae_lambda : 0.95 # gae smoothing parameter
+    lr_actor : 0.0003
+    lr_critic : 0.0003
+    clip : 0.3 # PPO clipping epsilon parameter
+    T : 20 # timesteps per each learning
+    max_score : 200 # max score possible for the environment
+    no_games : 300
+    save : False
+
+  - test_no : 25
+    env : CartPole-v0
+    epochs : 2 # number of epochs per learning
+    no_batches : 2 # number of batches for splitting the timesteps
+    hidden_dim : 256
+    gamma : 0.99 # discount factor
+    gae_lambda : 0.95 # gae smoothing parameter
+    lr_actor : 0.0003
+    lr_critic : 0.0003
+    clip : 0.2 # PPO clipping epsilon parameter
+    T : 30 # timesteps per each learning
+    max_score : 200 # max score possible for the environment
+    no_games : 300
+    save : False
+
+  - test_no : 26
+    env : CartPole-v0
+    epochs : 2 # number of epochs per learning
+    no_batches : 2 # number of batches for splitting the timesteps
+    hidden_dim : 256
+    gamma : 0.99 # discount factor
+    gae_lambda : 0.95 # gae smoothing parameter
+    lr_actor : 0.0003
+    lr_critic : 0.0003
+    clip : 0.2 # PPO clipping epsilon parameter
+    T : 40 # timesteps per each learning
+    max_score : 200 # max score possible for the environment
+    no_games : 300
+    save : False
+
+  - test_no : 27
+    env : CartPole-v0
+    epochs : 2 # number of epochs per learning
+    no_batches : 2 # number of batches for splitting the timesteps
+    hidden_dim : 256
+    gamma : 0.99 # discount factor
+    gae_lambda : 0.95 # gae smoothing parameter
+    lr_actor : 0.0003
+    lr_critic : 0.0003
+    clip : 0.2 # PPO clipping epsilon parameter
+    T : 50 # timesteps per each learning
+    max_score : 200 # max score possible for the environment
+    no_games : 300
+    save : False
+
+  - test_no : 28
+    env : CartPole-v0
+    epochs : 2 # number of epochs per learning
+    no_batches : 5 # number of batches for splitting the timesteps
+    hidden_dim : 256
+    gamma : 0.99 # discount factor
+    gae_lambda : 0.95 # gae smoothing parameter
+    lr_actor : 0.0003
+    lr_critic : 0.0003
+    clip : 0.2 # PPO clipping epsilon parameter
+    T : 50 # timesteps per each learning
+    max_score : 200 # max score possible for the environment
+    no_games : 300
+    save : False
+
+  - test_no : 29
+    env : CartPole-v0
+    epochs : 2 # number of epochs per learning
+    no_batches : 2 # number of batches for splitting the timesteps
+    hidden_dim : 256
+    gamma : 0.99 # discount factor
+    gae_lambda : 0.95 # gae smoothing parameter
+    lr_actor : 0.0003
+    lr_critic : 0.0003
+    clip : 0.2 # PPO clipping epsilon parameter
+    T : 20 # timesteps per each learning
+    max_score : 200 # max score possible for the environment
+    no_games : 300
+    save : False
+
+  - test_no : 29
+    env : CartPole-v0
+    epochs : 2 # number of epochs per learning
+    no_batches : 2 # number of batches for splitting the timesteps
+    hidden_dim : 256
+    gamma : 0.99 # discount factor
+    gae_lambda : 0.95 # gae smoothing parameter
+    lr_actor : 0.0003
+    lr_critic : 0.0003
+    clip : 0.2 # PPO clipping epsilon parameter
+    T : 20 # timesteps per each learning
+    max_score : 200 # max score possible for the environment
+    no_games : 300
+    save : False
+
+  - test_no : 30
+    env : CartPole-v0
+    epochs : 2 # number of epochs per learning
+    no_batches : 2 # number of batches for splitting the timesteps
+    hidden_dim : 256
+    gamma : 0.99 # discount factor
+    gae_lambda : 0.95 # gae smoothing parameter
+    lr_actor : 0.0005
+    lr_critic : 0.0005
+    clip : 0.2 # PPO clipping epsilon parameter
+    T : 20 # timesteps per each learning
+    max_score : 200 # max score possible for the environment
+    no_games : 300
+    save : False
+
+  - test_no : 31
+    env : CartPole-v0
+    epochs : 2 # number of epochs per learning
+    no_batches : 2 # number of batches for splitting the timesteps
+    hidden_dim : 256
+    gamma : 0.99 # discount factor
+    gae_lambda : 0.95 # gae smoothing parameter
+    lr_actor : 0.0005
+    lr_critic : 0.0005
+    clip : 0.2 # PPO clipping epsilon parameter
+    T : 50 # timesteps per each learning
+    max_score : 200 # max score possible for the environment
+    no_games : 300
     save : False

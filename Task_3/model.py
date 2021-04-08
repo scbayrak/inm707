@@ -72,9 +72,6 @@ class PPO():
                 self.critic_optim = optim.Adam(self.critic.parameters(), lr=lr_critic)
 
                 self.memory = Memory(no_batches, T)
-                
-                self.actor_losses = []
-                self.critic_losses = []
 
     def save_weights(self):
         
@@ -91,23 +88,21 @@ class PPO():
         distribution = Categorical(self.actor(state))
         action = distribution.sample() 
         log_prob = torch.squeeze(distribution.log_prob(action)).item()
+        action = torch.squeeze(action).item()
 
         state_value = self.critic(state)  
         state_value = torch.squeeze(state_value).item()
-        action = torch.squeeze(action).item()
-
+        
         return action, log_prob, state_value
 
     def optimize(self):
-        
+
         for epoch in range(self.epochs):
                     
             batch_items = self.memory.get_batches()
             states, values, actions, log_probs,\
             rewards, dones = batch_items[0] 
             batch_inds = batch_items[1]
-            self.actor_losses = []
-            self.critic_losses = []
 
             # calculate the Generalized Advantage Estimation
             advantage = [0]
@@ -121,10 +116,11 @@ class PPO():
     
             # normalize advantage
             advantage = torch.tensor(advantage).to(device)
-            advantage = advantage / 20
+            # advantage = (advantage - advantage.mean()) / (advantage.std() + 1e-8)
+            # The simpler form of normalization below 
+            advantage = advantage / 10
 
             values = torch.tensor(values).to(device)
-
 
             for batch in batch_inds:
                 states_batch = torch.tensor(states[batch], dtype=torch.float).to(device)
@@ -148,29 +144,19 @@ class PPO():
                                     1+self.clip) * advantage[batch]
 
                 actor_loss = -torch.min(surrogate, clipped_surrogate).mean()
-                #print(f"Actor loss {actor_loss}")
-                
-                self.actor_losses.append(actor_loss)
-                
+                # print(f"Actor loss {actor_loss}")
 
                 # advantage = returns - values
                 returns = (advantage[batch] + values[batch]).float()
-
-                
+     
                 loss_funct = nn.MSELoss()
                 critic_loss = loss_funct(returns, critic_values)
-                
-                self.critic_losses.append(critic_loss)
-                #print(f"Critic loss {critic_loss}")
-                
 
                 self.actor_optim.zero_grad()
                 actor_loss.backward()
                 self.actor_optim.step()
-                #print(actor_loss)
 
                 self.critic_optim.zero_grad()
                 critic_loss.backward()
                 self.critic_optim.step()
 
-            
