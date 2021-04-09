@@ -1,4 +1,4 @@
-""" Parameterizable stochastic gridworld enviroment for RL
+"""Parameterizable stochastic gridworld enviroment for RL
 
 """
 
