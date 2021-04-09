@@ -14,7 +14,7 @@ from PPO_learning import PpoLearning
 FILENAME = "tests.yaml"
 
 def plot_graphs(test_dict, rewards):
-    """ Forward propogation.
+    """ Plots results graphs.
 
         Args:
             test_dict: Dictionary with hyper-parameters for the test case.
