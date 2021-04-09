@@ -1,0 +1,305 @@
+Tests:
+
+  - test_no : 1
+    env_size : 11
+    gamma : 0.99 # discount factor
+    alpha : 0.5 # learning rate
+    agent_start_pos : middle
+    epsilon : 0.99 # random action probability
+    decay : 0.95 # epsilon decay rate
+    batch_episodes : 100 # the size of a batch of q_learning episodes
+    exp_per_batch : 50 # number of experiments after a batch of q_learning 
+    iters : 500 # no of iterations for (q_learning + experiments)
+
+  - test_no : 2
+    env_size : 11
+    gamma : 0.7 # discount factor
+    alpha : 0.5 # learning rate
+    agent_start_pos : middle
+    epsilon : 0.99 # random action probability
+    decay : 0.95 # epsilon decay rate
+    batch_episodes : 100 # the size of a batch of q_learning episodes
+    exp_per_batch : 50 # number of experiments after a batch of q_learning 
+    iters : 500 # no of iterations for (q_learning + experiments)
+
+  - test_no : 3
+    env_size : 11
+    gamma : 0.5 # discount factor
+    alpha : 0.5 # learning rate
+    agent_start_pos : middle
+    epsilon : 0.99 # random action probability
+    decay : 0.95 # epsilon decay rate
+    batch_episodes : 100 # the size of a batch of q_learning episodes
+    exp_per_batch : 50 # number of experiments after a batch of q_learning 
+    iters : 500 # no of iterations for (q_learning + experiments)
+
+
+  - test_no : 4
+    env_size : 11
+    gamma : 0.3 # discount factor
+    alpha : 0.5 # learning rate
+    agent_start_pos : middle
+    epsilon : 0.99 # random action probability
+    decay : 0.95 # epsilon decay rate
+    batch_episodes : 100 # the size of a batch of q_learning episodes
+    exp_per_batch : 50 # number of experiments after a batch of q_learning 
+    iters : 500 # no of iterations for (q_learning + experiments)
+
+
+  - test_no : 5
+    env_size : 11
+    gamma : 0.1 # discount factor
+    alpha : 0.5 # learning rate
+    agent_start_pos : middle
+    epsilon : 0.99 # random action probability
+    decay : 0.95 # epsilon decay rate
+    batch_episodes : 100 # the size of a batch of q_learning episodes
+    exp_per_batch : 50 # number of experiments after a batch of q_learning 
+    iters : 500 # no of iterations for (q_learning + experiments)
+
+  - test_no : 6
+    env_size : 11
+    gamma : 0.99 # discount factor
+    alpha : 0.1 # learning rate
+    agent_start_pos : middle
+    epsilon : 0.99 # random action probability
+    decay : 0.95 # epsilon decay rate
+    batch_episodes : 100 # the size of a batch of q_learning episodes
+    exp_per_batch : 50 # number of experiments after a batch of q_learning 
+    iters : 500 # no of iterations for (q_learning + experiments)
+
+  - test_no : 7
+    env_size : 11
+    gamma : 0.99 # discount factor
+    alpha : 0.2 # learning rate
+    agent_start_pos : middle
+    epsilon : 0.99 # random action probability
+    decay : 0.95 # epsilon decay rate
+    batch_episodes : 100 # the size of a batch of q_learning episodes
+    exp_per_batch : 50 # number of experiments after a batch of q_learning 
+    iters : 500 # no of iterations for (q_learning + experiments)
+
+  - test_no : 8
+    env_size : 11
+    gamma : 0.99 # discount factor
+    alpha : 0.3 # learning rate
+    agent_start_pos : middle
+    epsilon : 0.99 # random action probability
+    decay : 0.95 # epsilon decay rate
+    batch_episodes : 100 # the size of a batch of q_learning episodes
+    exp_per_batch : 50 # number of experiments after a batch of q_learning 
+    iters : 500 # no of iterations for (q_learning + experiments)
+
+  - test_no : 9
+    env_size : 11
+    gamma : 0.99 # discount factor
+    alpha : 0.4 # learning rate
+    agent_start_pos : middle
+    epsilon : 0.99 # random action probability
+    decay : 0.95 # epsilon decay rate
+    batch_episodes : 100 # the size of a batch of q_learning episodes
+    exp_per_batch : 50 # number of experiments after a batch of q_learning 
+    iters : 500 # no of iterations for (q_learning + experiments)
+
+
+  - test_no : 10
+    env_size : 11
+    gamma : 0.99 # discount factor
+    alpha : 0.6 # learning rate
+    agent_start_pos : middle
+    epsilon : 0.99 # random action probability
+    decay : 0.95 # epsilon decay rate
+    batch_episodes : 100 # the size of a batch of q_learning episodes
+    exp_per_batch : 50 # number of experiments after a batch of q_learning 
+    iters : 500 # no of iterations for (q_learning + experiments)
+
+
+  - test_no : 11
+    env_size : 11
+    gamma : 0.99 # discount factor
+    alpha : 0.7 # learning rate
+    agent_start_pos : middle
+    epsilon : 0.99 # random action probability
+    decay : 0.95 # epsilon decay rate
+    batch_episodes : 100 # the size of a batch of q_learning episodes
+    exp_per_batch : 50 # number of experiments after a batch of q_learning 
+    iters : 500 # no of iterations for (q_learning + experiments)
+
+  - test_no : 12
+    env_size : 11
+    gamma : 0.99 # discount factor
+    alpha : 0.8 # learning rate
+    agent_start_pos : middle
+    epsilon : 0.99 # random action probability
+    decay : 0.95 # epsilon decay rate
+    batch_episodes : 100 # the size of a batch of q_learning episodes
+    exp_per_batch : 50 # number of experiments after a batch of q_learning 
+    iters : 500 # no of iterations for (q_learning + experiments)
+
+  - test_no : 13
+    env_size : 11
+    gamma : 0.99 # discount factor
+    alpha : 0.9 # learning rate
+    agent_start_pos : middle
+    epsilon : 0.99 # random action probability
+    decay : 0.95 # epsilon decay rate
+    batch_episodes : 100 # the size of a batch of q_learning episodes
+    exp_per_batch : 50 # number of experiments after a batch of q_learning 
+    iters : 500 # no of iterations for (q_learning + experiments)
+
+  - test_no : 14
+    env_size : 11
+    gamma : 0.99 # discount factor
+    alpha : 1 # learning rate
+    agent_start_pos : middle
+    epsilon : 0.99 # random action probability
+    decay : 0.95 # epsilon decay rate
+    batch_episodes : 100 # the size of a batch of q_learning episodes
+    exp_per_batch : 50 # number of experiments after a batch of q_learning 
+    iters : 500 # no of iterations for (q_learning + experiments)
+
+  - test_no : 15
+    env_size : 11
+    gamma : 0.99 # discount factor
+    alpha : 0.5 # learning rate
+    agent_start_pos : middle
+    epsilon : 0.99 # random action probability
+    decay : 0.9 # epsilon decay rate
+    batch_episodes : 100 # the size of a batch of q_learning episodes
+    exp_per_batch : 50 # number of experiments after a batch of q_learning 
+    iters : 500 # no of iterations for (q_learning + experiments)
+
+  - test_no : 16
+    env_size : 11
+    gamma : 0.99 # discount factor
+    alpha : 0.5 # learning rate
+    agent_start_pos : middle
+    epsilon : 0.99 # random action probability
+    decay : 0.925 # epsilon decay rate
+    batch_episodes : 100 # the size of a batch of q_learning episodes
+    exp_per_batch : 50 # number of experiments after a batch of q_learning 
+    iters : 5 # no of iterations for (q_learning + experiments)
+
+  - test_no : 17
+    env_size : 7
+    gamma : 0.99 # discount factor
+    alpha : 0.5 # learning rate
+    agent_start_pos : middle
+    epsilon : 0.99 # random action probability
+    decay : 0.95 # epsilon decay rate
+    batch_episodes : 100 # the size of a batch of q_learning episodes
+    exp_per_batch : 50 # number of experiments after a batch of q_learning 
+    iters : 500 # no of iterations for (q_learning + experiments)
+
+  - test_no : 18
+    env_size : 8
+    gamma : 0.99 # discount factor
+    alpha : 0.5 # learning rate
+    agent_start_pos : middle
+    epsilon : 0.99 # random action probability
+    decay : 0.95 # epsilon decay rate
+    batch_episodes : 100 # the size of a batch of q_learning episodes
+    exp_per_batch : 50 # number of experiments after a batch of q_learning 
+    iters : 500 # no of iterations for (q_learning + experiments)
+
+
+  - test_no : 19
+    env_size : 9
+    gamma : 0.99 # discount factor
+    alpha : 0.5 # learning rate
+    agent_start_pos : middle
+    epsilon : 0.99 # random action probability
+    decay : 0.95 # epsilon decay rate
+    batch_episodes : 100 # the size of a batch of q_learning episodes
+    exp_per_batch : 50 # number of experiments after a batch of q_learning 
+    iters : 500 # no of iterations for (q_learning + experiments)
+
+  - test_no : 20
+    env_size : 10
+    gamma : 0.99 # discount factor
+    alpha : 0.5 # learning rate
+    agent_start_pos : middle
+    epsilon : 0.99 # random action probability
+    decay : 0.95 # epsilon decay rate
+    batch_episodes : 100 # the size of a batch of q_learning episodes
+    exp_per_batch : 50 # number of experiments after a batch of q_learning 
+    iters : 500 # no of iterations for (q_learning + experiments)
+
+  - test_no : 21
+    env_size : 12
+    gamma : 0.99 # discount factor
+    alpha : 0.5 # learning rate
+    agent_start_pos : middle
+    epsilon : 0.99 # random action probability
+    decay : 0.95 # epsilon decay rate
+    batch_episodes : 100 # the size of a batch of q_learning episodes
+    exp_per_batch : 50 # number of experiments after a batch of q_learning 
+    iters : 500 # no of iterations for (q_learning + experiments)
+
+  - test_no : 22
+    env_size : 13
+    gamma : 0.99 # discount factor
+    alpha : 0.5 # learning rate
+    agent_start_pos : middle
+    epsilon : 0.99 # random action probability
+    decay : 0.95 # epsilon decay rate
+    batch_episodes : 100 # the size of a batch of q_learning episodes
+    exp_per_batch : 50 # number of experiments after a batch of q_learning 
+    iters : 500 # no of iterations for (q_learning + experiments)
+
+  - test_no : 23
+    env_size : 14
+    gamma : 0.99 # discount factor
+    alpha : 0.5 # learning rate
+    agent_start_pos : middle
+    epsilon : 0.99 # random action probability
+    decay : 0.95 # epsilon decay rate
+    batch_episodes : 100 # the size of a batch of q_learning episodes
+    exp_per_batch : 50 # number of experiments after a batch of q_learning 
+    iters : 500 # no of iterations for (q_learning + experiments)
+
+  - test_no : 24
+    env_size : 15
+    gamma : 0.99 # discount factor
+    alpha : 0.5 # learning rate
+    agent_start_pos : middle
+    epsilon : 0.99 # random action probability
+    decay : 0.95 # epsilon decay rate
+    batch_episodes : 100 # the size of a batch of q_learning episodes
+    exp_per_batch : 50 # number of experiments after a batch of q_learning 
+    iters : 750 # no of iterations for (q_learning + experiments)
+
+  - test_no : 25
+    env_size : 11
+    gamma : 0.99 # discount factor
+    alpha : 0.5 # learning rate
+    agent_start_pos : close_to_sub
+    epsilon : 0.99 # random action probability
+    decay : 0.95 # epsilon decay rate
+    batch_episodes : 100 # the size of a batch of q_learning episodes
+    exp_per_batch : 50 # number of experiments after a batch of q_learning 
+    iters : 500 # no of iterations for (q_learning + experiments)
+
+  - test_no : 26
+    env_size : 11
+    gamma : 0.99 # discount factor
+    alpha : 0.5 # learning rate
+    agent_start_pos : close_to_opt
+    epsilon : 0.99 # random action probability
+    decay : 0.95 # epsilon decay rate
+    batch_episodes : 100 # the size of a batch of q_learning episodes
+    exp_per_batch : 50 # number of experiments after a batch of q_learning 
+    iters : 200 # no of iterations for (q_learning + experiments)
+
+  # - test_no : 500 ##############For debugging
+  #   env_size : 11
+  #   gamma : 0.99 # discount factor
+  #   alpha : 0.5 # learning rate
+  #   agent_start_pos : close_to_opt
+  #   epsilon : 0.99 # random action probability
+  #   decay : 0.95 # epsilon decay rate
+  #   batch_episodes : 100 # the size of a batch of q_learning episodes
+  #   exp_per_batch : 50 # number of experiments after a batch of q_learning 
+  #   iters : 200 # no of iterations for (q_learning + experiments)
+
+
