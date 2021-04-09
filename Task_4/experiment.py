@@ -1,3 +1,7 @@
+""" Runs training and evaluation of test cases from tests.yaml file.
+
+"""
+
 import yaml
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -10,10 +14,11 @@ from a2c import ActorCritic
 FILENAME = "tests.yaml"
 
 def plot_graphs(test_dict, rewards):
-    """ Plots reward graph.
+    """ Plots rewards graph.
 
         Args:
             test_dict: Dictionary with hyper-parameters for the test case.
+            rewards: Rewards collected from all episodes. 
 
         Returns:
             None
@@ -38,7 +43,15 @@ def plot_graphs(test_dict, rewards):
     plt.savefig(f'results/charts/Test_{test_dict["test_no"]}.png', bbox_inches='tight')
 
 def run_tests():
+    """ Runs tests from .yaml file, saves results plots and .csv file.
 
+        Args:
+            None.
+
+        Returns:
+            results: Test results dataframe. 
+
+    """
     with open(FILENAME) as file:
 
         # Loads the test hyper-parameters as dictionaries.
