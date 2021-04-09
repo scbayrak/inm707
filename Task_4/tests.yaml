@@ -1,0 +1,113 @@
+Tests:
+
+  - test_no : 1
+    env : CartPole-v0
+    hidden_size : 64
+    gamma : 0.99 # discount factor
+    max_score : 200 # max score possible for the environment
+    episodes : 1000
+    save : False
+
+  - test_no : 2
+    env : CartPole-v0
+    hidden_size : 128
+    gamma : 0.99 # discount factor
+    max_score : 200 # max score possible for the environment
+    episodes : 1000
+    save : False
+
+  - test_no : 3
+    env : CartPole-v0
+    hidden_size : 256
+    gamma : 0.99 # discount factor
+    max_score : 200 # max score possible for the environment
+    episodes : 1000
+    save : False
+  
+  - test_no : 4
+    env : CartPole-v0
+    hidden_size : 256
+    gamma : 0.999 # discount factor
+    max_score : 200 # max score possible for the environment
+    episodes : 1000
+    save : False
+
+  - test_no : 5
+    env : CartPole-v0
+    hidden_size : 256
+    gamma : 0.98 # discount factor
+    max_score : 200 # max score possible for the environment
+    episodes : 1000
+    save : False
+
+  - test_no : 6
+    env : CartPole-v0
+    hidden_size : 256
+    gamma : 0.97 # discount factor
+    max_score : 200 # max score possible for the environment
+    episodes : 1000
+    save : False
+
+  - test_no : 7
+    env : CartPole-v0
+    hidden_size : 256
+    gamma : 0.96 # discount factor
+    max_score : 200 # max score possible for the environment
+    episodes : 1000
+    save : False
+
+  - test_no : 8
+    env : CartPole-v0
+    hidden_size : 256
+    gamma : 0.95 # discount factor
+    max_score : 200 # max score possible for the environment
+    episodes : 1000
+    save : False
+
+  - test_no : 9
+    env : CartPole-v0
+    hidden_size : 256
+    gamma : 0.9 # discount factor
+    max_score : 200 # max score possible for the environment
+    episodes : 1000
+    save : False
+
+  - test_no : 10
+    env : CartPole-v0
+    hidden_size : 256
+    gamma : 0.8 # discount factor
+    max_score : 200 # max score possible for the environment
+    episodes : 1000
+    save : False
+
+  - test_no : 11
+    env : CartPole-v0
+    hidden_size : 256
+    gamma : 0.6 # discount factor
+    max_score : 200 # max score possible for the environment
+    episodes : 1000
+    save : False
+
+  - test_no : 12
+    env : CartPole-v0
+    hidden_size : 256
+    gamma : 0.4 # discount factor
+    max_score : 200 # max score possible for the environment
+    episodes : 1000
+    save : False
+
+  - test_no : 13
+    env : CartPole-v0
+    hidden_size : 256
+    gamma : 0.2 # discount factor
+    max_score : 200 # max score possible for the environment
+    episodes : 1000
+    save : False
+
+  - test_no : 14
+    env : CartPole-v0
+    hidden_size : 256
+    gamma : 0.1 # discount factor
+    max_score : 200 # max score possible for the environment
+    episodes : 1000
+    save : False
