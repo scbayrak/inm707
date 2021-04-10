@@ -1,4 +1,4 @@
-# inm707
+# INM707
 Reinforcement Learning Coursework
 
 Implementation of RL algorithms for inm707 coursework by KRISTINA SEMENYUK / 200036364 and SELIM BAYRAK / 200056225
