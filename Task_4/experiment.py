@@ -9,7 +9,7 @@ import matplotlib.gridspec as gridspec
 import numpy as np
 import gym
 
-from a2c import ActorCritic
+from actor_critic import ActorCritic
 
 FILENAME = "tests.yaml"
 
@@ -84,4 +84,3 @@ def run_tests():
         results.to_csv(filename)
 
     return results
-
