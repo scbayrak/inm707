@@ -1,16 +1,16 @@
-# inm707
+# INM707
  Reinforcement Learning Coursework Task 4
 
 - Implementation of A2C RL algorithm to play OpenAI CartPole-v0 environment. 
 
 
 ## Requirements
-torch
-pyyaml (https://pypi.org/project/PyYAML/)
-numpy  
-matplotlib 
-pandas 
-gym
+torch  
+pyyaml (https://pypi.org/project/PyYAML/)  
+numpy    
+matplotlib   
+pandas   
+gym  
 
 ## Files
 - `task_4.ipynb` : Presentation of Task

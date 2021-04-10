@@ -1,4 +1,4 @@
-# inm707 - Task 3
+# INM707 - Task 3
 PPO algorithm implementation for solving OpenAI CartPole-v0 environment.
 
 ## Requirements
